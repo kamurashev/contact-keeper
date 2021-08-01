@@ -1,5 +1,8 @@
 {
   "port": 5001,
   "apiRootPrefix": "/api",
-  "apiVerPrefix": "/v1"
+  "apiVerPrefix": "/v1",
+  "db": {
+    "mongoURI": ""
+  }
 }
