@@ -1,8 +1,11 @@
 {
-  "port": 5001,
-  "apiRootPrefix": "/api",
-  "apiVerPrefix": "/v1",
-  "db": {
+  "apiConfig": {
+    "port": 5001,
+    "apiRootPrefix": "/api",
+    "apiVerPrefix": "/v1"
+  },
+  "dbConfig": {
     "mongoURI": ""
-  }
+  },
+  "jwtSecret": ""
 }
