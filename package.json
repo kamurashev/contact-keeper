@@ -4,9 +4,12 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "node swagger.js && node server.js",
-    "watching": "node swagger.js && nodemon server.js",
-    "swagger-autogen": "node swagger.js"
+    "server-start": "node swagger.js && node server.js",
+    "server-watching": "node swagger.js && nodemon server.js",
+    "swagger-autogen": "node swagger.js",
+    "client-start": "npm start --prefix client",
+    "client-install": "npm install --prefix client",
+    "dev": "concurrently \"npm run server-watching\" \"npm run client-start\""
   },
   "author": "k.a.murashev",
   "license": "ISC",
