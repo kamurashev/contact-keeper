@@ -4,7 +4,7 @@ const jwtSecret = require('config').get('jwtSecret');
 module.exports = (req, res, next) => {
   /*#swagger.responses[401] = {
     description: 'Unauthorizad. Object with msg field representing detailed reason',
-    schema: { $ref: '#/definitions/Message' }
+    schema: { $ref: '#/definitions/ValidationErrors' }
   }*/
   try {
     const authHeader = req.header('authorization');
@@ -26,6 +26,6 @@ module.exports = (req, res, next) => {
     next();
   } catch (err) {
     console.log('401 - Unauthirized access try', err);
-    res.status(401).json({ msg: err.message });
+    res.status(401).json({errors: [{ msg: err.message }]});
   }
 };

@@ -23,9 +23,9 @@ app.get('/api-docs', swaggerUi.setup(swaggerDocument));
 app.use((err, req, res, next) => {
   /*#swagger.responses[500] = {
       description: 'Server error. Object with msg field representing detailed reason',
-      schema: { $ref: '#/definitions/Message' }
+      schema: { $ref: '#/definitions/ValidationErrors' }
   }*/
-  const errResp = { msg: err.message };
+  const errResp = {errors: [{ msg: err.message }]};
   console.error('500 - Internal server error has occured', errResp);
   res.status(500).json(errResp);
 });

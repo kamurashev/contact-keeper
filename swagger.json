@@ -90,7 +90,7 @@
           "401": {
             "description": "Unauthorizad. Object with msg field representing detailed reason",
             "schema": {
-              "$ref": "#/definitions/Message"
+              "$ref": "#/definitions/ValidationErrors"
             }
           }
         },
@@ -144,7 +144,7 @@
           "401": {
             "description": "Unauthorizad. Object with msg field representing detailed reason",
             "schema": {
-              "$ref": "#/definitions/Message"
+              "$ref": "#/definitions/ValidationErrors"
             }
           }
         },
@@ -183,7 +183,7 @@
           "401": {
             "description": "Unauthorizad. Object with msg field representing detailed reason",
             "schema": {
-              "$ref": "#/definitions/Message"
+              "$ref": "#/definitions/ValidationErrors"
             }
           }
         },
@@ -234,19 +234,19 @@
           "401": {
             "description": "Unauthorizad. Object with msg field representing detailed reason",
             "schema": {
-              "$ref": "#/definitions/Message"
+              "$ref": "#/definitions/ValidationErrors"
             }
           },
           "403": {
             "description": "Forbidden. Object with msg field representing detailed reason",
             "schema": {
-              "$ref": "#/definitions/Message"
+              "$ref": "#/definitions/ValidationErrors"
             }
           },
           "404": {
             "description": "Not exist. Object with msg field representing detailed reason",
             "schema": {
-              "$ref": "#/definitions/Message"
+              "$ref": "#/definitions/ValidationErrors"
             }
           }
         },
@@ -287,19 +287,19 @@
           "401": {
             "description": "Unauthorizad. Object with msg field representing detailed reason",
             "schema": {
-              "$ref": "#/definitions/Message"
+              "$ref": "#/definitions/ValidationErrors"
             }
           },
           "403": {
             "description": "Forbidden. Object with msg field representing detailed reason",
             "schema": {
-              "$ref": "#/definitions/Message"
+              "$ref": "#/definitions/ValidationErrors"
             }
           },
           "404": {
             "description": "Not exist. Object with msg field representing detailed reason",
             "schema": {
-              "$ref": "#/definitions/Message"
+              "$ref": "#/definitions/ValidationErrors"
             }
           }
         },

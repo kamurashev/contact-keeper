@@ -1,11 +1,14 @@
 import React, { useReducer } from 'react';
-import { v4 as uuid } from 'uuid';
+import axios from 'axios';
 import { ContactContext } from './contactContext';
 import contactReducer from './contactReducer';
 import {
+  GET_CONTACTS,
+  CLEAR_CONTACTS,
   ADD_CONTACT,
   UPDATE_CONTACT,
   DELETE_CONTACT,
+  CONTACT_ERROR,
   SET_CURRENT,
   CLEAR_CURRENT,
   FILTER_CONTACTS,
@@ -14,69 +17,87 @@ import {
 
 const ContactState = (props) => {
   const initialState = {
-    contacts: [
-      {
-        id: 1,
-        name: 'Leeloo Dallas',
-        email: 'leeloo@somemail.com',
-        phone: '111-111-1111',
-        type: 'personal',
-      },
-      {
-        id: 2,
-        name: 'Korben Dallas',
-        email: 'korben@somemail.com',
-        phone: '222-222-2222',
-        type: 'personal',
-      },
-      {
-        id: 3,
-        name: 'Buddy Fingers',
-        email: 'fingers@somemail.com',
-        phone: '333-333-3333',
-        type: 'professional',
-      },
-    ],
+    contacts: null,
+    loading: true,
     current: null,
     filter: null,
-    filtered: null
+    filtered: null,
+    
+    errors: null,
   };
 
   const [state, dispatch] = useReducer(contactReducer, initialState);
 
-  const addContact = (contact) => {
-    contact.id = uuid();
-    dispatch({ type: ADD_CONTACT, payload: contact });
+  const getContacts = async () => {
+    try {
+      const res = await axios.get('/contacts');
+      dispatch({ type: GET_CONTACTS, payload: res.data });
+    } catch (err) {
+      dispatch({ type: CONTACT_ERROR, payload: err.response.messages });
+    }
   };
 
-  const updateContact = (contact) =>
-    dispatch({ type: UPDATE_CONTACT, payload: contact });
+  const clearContacts = () => {
+    dispatch({ type: CLEAR_CONTACTS });
+  };
 
-  const deleteContact = (id) => dispatch({ type: DELETE_CONTACT, payload: id });
+  const addContact = async (contact) => {
+    const config = { headers: { 'Content-Type': 'application/json' } };
+    try {
+      const res = await axios.post('/contacts', contact, config);
+      dispatch({ type: ADD_CONTACT, payload: res.data });
+    } catch (err) {
+      dispatch({ type: CONTACT_ERROR, payload: err.response.messages });
+    }
+  };
+
+  const updateContact = async (contact) => {
+    const config = { headers: { 'Content-Type': 'application/json' } };
+    try {
+      const res = await axios.put(`/contacts/${contact._id}`, contact, config);
+      dispatch({ type: UPDATE_CONTACT, payload: res.data });
+    } catch (err) {
+      dispatch({ type: CONTACT_ERROR, payload: err.response.messages });
+    }
+  }
+
+  const deleteContact = async (_id) => {
+    try {
+      await axios.delete(`/contacts/${_id}`);
+      dispatch({ type: DELETE_CONTACT, payload: _id });
+    } catch (err) {
+      dispatch({ type: CONTACT_ERROR, payload: err.response.messages });
+    }
+  }
 
   const setCurrent = (contact) =>
     dispatch({ type: SET_CURRENT, payload: contact });
 
   const clearCurrent = () => dispatch({ type: CLEAR_CURRENT });
 
-  const filterContacts = value => dispatch({ type: FILTER_CONTACTS, payload: value });
-  
+  const filterContacts = (value) =>
+    dispatch({ type: FILTER_CONTACTS, payload: value });
+
   const clearFilter = () => dispatch({ type: CLEAR_FILTER });
 
   return (
     <ContactContext.Provider
       value={{
         contacts: state.contacts,
+        loading: state.loading,
         current: state.current,
         filter: state.filter,
         filtered: state.filtered,
+        errors: state.errors,
+        getContacts,
+        clearContacts,
         addContact,
         updateContact,
         deleteContact,
         setCurrent,
         clearCurrent,
         filterContacts,
-        clearFilter
+        clearFilter,
       }}>
       {props.children}
     </ContactContext.Provider>

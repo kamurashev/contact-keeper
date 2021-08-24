@@ -13,6 +13,7 @@ const ContactForm = () => {
 
   useEffect(
     () => (current ? setContact(current) : setContact(initialState)),
+    // eslint-disable-next-line
     [current]
   );
 

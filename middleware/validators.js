@@ -61,11 +61,11 @@ const addContactValidator = [check('name', 'Name is required').not().isEmpty()];
 const updateRemoveContactValidator = async (req, res, next) => {
   /*#swagger.responses[404] = {
       description: 'Not exist. Object with msg field representing detailed reason',
-      schema: { $ref: '#/definitions/Message' }
+      schema: { $ref: '#/definitions/ValidationErrors' }
     }*/
   /*#swagger.responses[403] = {
       description: 'Forbidden. Object with msg field representing detailed reason',
-      schema: { $ref: '#/definitions/Message' }
+      schema: { $ref: '#/definitions/ValidationErrors' }
     }*/
   const existed = await Contact.findById(req.params.id);
   !existed && sendNotFound(res, 'Contact not found');
@@ -74,8 +74,8 @@ const updateRemoveContactValidator = async (req, res, next) => {
   next();
 };
 
-const sendNotFound = (res, msg) => res.status(404).json({ msg });
-const sendForbidden = (res, msg) => res.status(403).json({ msg });
+const sendNotFound = (res, msg) => res.status(404).json({errors: [{ msg }]});
+const sendForbidden = (res, msg) => res.status(403).json({errors: [{ msg }]});
 
 module.exports = {
   validate,
