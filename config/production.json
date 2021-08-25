@@ -1,7 +1,7 @@
 {
-  "host": "localhost",
+  "host": "trywithfun.zapto.org",
   "apiConfig": {
-    "port": 5001,
+    "port": 4444,
     "apiRootPrefix": "/api",
     "apiVerPrefix": "/v1"
   },

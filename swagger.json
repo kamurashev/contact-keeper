@@ -29,14 +29,6 @@
     "application/json"
   ],
   "paths": {
-    "/": {
-      "get": {
-        "tags": [],
-        "description": "",
-        "parameters": [],
-        "responses": {}
-      }
-    },
     "/api-docs": {
       "get": {
         "tags": [],

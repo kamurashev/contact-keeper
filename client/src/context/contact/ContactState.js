@@ -15,6 +15,8 @@ import {
   CLEAR_FILTER,
 } from '../types';
 
+const apiPrefix = process.env.REACT_APP_API_PREFIX;
+
 const ContactState = (props) => {
   const initialState = {
     contacts: null,
@@ -30,7 +32,7 @@ const ContactState = (props) => {
 
   const getContacts = async () => {
     try {
-      const res = await axios.get('/contacts');
+      const res = await axios.get(`${apiPrefix}/contacts`);
       dispatch({ type: GET_CONTACTS, payload: res.data });
     } catch (err) {
       dispatch({ type: CONTACT_ERROR, payload: err.response.messages });
@@ -44,7 +46,7 @@ const ContactState = (props) => {
   const addContact = async (contact) => {
     const config = { headers: { 'Content-Type': 'application/json' } };
     try {
-      const res = await axios.post('/contacts', contact, config);
+      const res = await axios.post(`${apiPrefix}/contacts`, contact, config);
       dispatch({ type: ADD_CONTACT, payload: res.data });
     } catch (err) {
       dispatch({ type: CONTACT_ERROR, payload: err.response.messages });
@@ -54,7 +56,7 @@ const ContactState = (props) => {
   const updateContact = async (contact) => {
     const config = { headers: { 'Content-Type': 'application/json' } };
     try {
-      const res = await axios.put(`/contacts/${contact._id}`, contact, config);
+      const res = await axios.put(`${apiPrefix}/contacts/${contact._id}`, contact, config);
       dispatch({ type: UPDATE_CONTACT, payload: res.data });
     } catch (err) {
       dispatch({ type: CONTACT_ERROR, payload: err.response.messages });
@@ -63,7 +65,7 @@ const ContactState = (props) => {
 
   const deleteContact = async (_id) => {
     try {
-      await axios.delete(`/contacts/${_id}`);
+      await axios.delete(`${apiPrefix}/contacts/${_id}`);
       dispatch({ type: DELETE_CONTACT, payload: _id });
     } catch (err) {
       dispatch({ type: CONTACT_ERROR, payload: err.response.messages });
