@@ -18,7 +18,7 @@ const App = () => (
   <AuthState>
     <ContactState>
       <AlertState>
-        <Router>
+        <Router basename={process.env.PUBLIC_URL}>
           <Fragment>
             <Navbar />
             <div className='container'>

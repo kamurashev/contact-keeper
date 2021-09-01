@@ -31,7 +31,7 @@ const AuthState = (props) => {
   const register = async (regForm) => {
     const config = { headers: { 'Content-Type': 'application/json' } };
     try {
-      const res = await axios.post(`${apiPrefix}/users`, regForm, config);
+      const res = await axios.post(`${process.env.PUBLIC_URL}${apiPrefix}/users`, regForm, config);
       dispatch({ type: REGISTER_SUCCESS, payload: res.data });
       loadUser();
     } catch (err) {
@@ -44,7 +44,7 @@ const AuthState = (props) => {
     if (token) {
       setAuthToken(token);
       try {
-        const res = await axios.get(`${apiPrefix}/auth`);
+        const res = await axios.get(`${process.env.PUBLIC_URL}${apiPrefix}/auth`);
         dispatch({ type: USER_LOADED, payload: res.data });
       } catch (err) {
         dispatch({ type: AUTH_ERROR, payload: err.response.data.errors });
@@ -55,7 +55,7 @@ const AuthState = (props) => {
   const login = async (loginForm) => {
     const config = { headers: { 'Content-Type': 'application/json' } };
     try {
-      const res = await axios.post(`${apiPrefix}/auth`, loginForm, config);
+      const res = await axios.post(`${process.env.PUBLIC_URL}${apiPrefix}/auth`, loginForm, config);
       dispatch({ type: LOGIN_SUCCESS, payload: res.data });
       loadUser();
     } catch (err) {
