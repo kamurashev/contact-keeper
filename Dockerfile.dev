@@ -1,0 +1,17 @@
+FROM node:alpine
+
+# RUN addgroup -S appuser && adduser -S appuser -G appuser
+RUN mkdir /contact-keeper /root/.npm /root/.npm/_logs
+RUN chown -R node:node /contact-keeper /root/.npm
+USER node
+WORKDIR '/contact-keeper'
+
+COPY --chown=node:node package.json ./ 
+RUN npm install
+COPY --chown=node:node client/package.json ./client/
+RUN npm install --prefix client
+COPY --chown=node:node config ./config/
+COPY --chown=node:node . .
+RUN npm run swagger-autogen
+
+CMD ["npm", "run", "dev"]

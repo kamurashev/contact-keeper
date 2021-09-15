@@ -1,0 +1,16 @@
+#shorthand for:
+#docker build -f Dockerfile.dev -t {id} .  
+#docker run -p 5001:5001 -p 3000:3000 -v $(pwd):/contact-keeper -v /contact-keeper/node_modules -v /contact-keeper/client/node_modules -it {id}
+version: '3'
+services: 
+  contact-keeper:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports: 
+      - "5001:5001" #express-api
+      - "3000:3000" #react-ui
+    volumes:
+      - .:/contact-keeper
+      - /contact-keeper/node_modules
+      - /contact-keeper/client/node_modules     
